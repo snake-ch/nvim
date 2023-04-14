@@ -16,6 +16,7 @@ opt.sidescrolloff = 5
 opt.hlsearch = true
 opt.incsearch = true
 
+opt.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250'
 opt.mouse = 'a'
 opt.clipboard:append('unnamedplus')
 
@@ -34,7 +35,7 @@ vim.bo.autoread = true
 
 opt.signcolumn = 'yes'
 -- opt.list = true
-vim.listchars = "space:·"
+vim.listchars = 'space:·'
 
 opt.cursorline = true
 opt.termguicolors = true
