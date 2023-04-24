@@ -24,7 +24,7 @@ autocmd('BufWritePre', {
   end,
 })
 
--- nvim-tree auto close
+-- -- nvim-tree auto close
 -- autocmd('BufEnter', {
 --   nested = true,
 --   group = autoGroup,
