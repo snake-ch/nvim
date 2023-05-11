@@ -3,3 +3,4 @@ if vim.g.neovide then
   vim.o.guifont = 'Cascadia Code:h13'
   vim.g.neovide_transparency = 1.0
 end
+

@@ -25,7 +25,6 @@ cmp.setup({
       vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` users.
     end
   },
-
   mapping = cmp.mapping.preset.insert({
     -- Use <C-b/f> to scroll the docs
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -33,7 +32,6 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-
     -- super Tab
     -- sourc: https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#vim-vsnip
     ['<Tab>'] = cmp.mapping(function(fallback)
@@ -47,7 +45,6 @@ cmp.setup({
         fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
       end
     end, { 'i', 's' }),
-
     ['<S-Tab>'] = cmp.mapping(function()
       if cmp.visible() then
         cmp.select_prev_item()
@@ -57,35 +54,32 @@ cmp.setup({
     end, { 'i', 's' }),
     -- end of super Tab
   }),
-
   formatting = {
     format = lspkind.cmp_format({
-      mode = 'symbol_text', -- show only symbol annotations
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      mode = 'symbol_text',  -- show only symbol annotations
+      maxwidth = 50,         -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
       ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-
       -- The function below will be called before any actual modifications from lspkind
       -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-      before = function (entry, vim_item)
-          -- if vim.tbl_contains({ 'path' }, entry.source.name) then
-          --   local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
-          --   if icon then
-          --     vim_item.kind = icon
-          --     vim_item.kind_hl_group = hl_group
-          --     return vim_item
-          --   end
-          -- end
-          vim_item.menu = ({
-              nvim_lsp = '[Lsp]',
-              vsnip = '[Vsnip]',
-              buffer = '[File]',
-              path = '[Path]',
-            })[entry.source.name]
+      before = function(entry, vim_item)
+        -- if vim.tbl_contains({ 'path' }, entry.source.name) then
+        --   local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
+        --   if icon then
+        --     vim_item.kind = icon
+        --     vim_item.kind_hl_group = hl_group
+        --     return vim_item
+        --   end
+        -- end
+        vim_item.menu = ({
+          nvim_lsp = '[Lsp]',
+          vsnip = '[Vsnip]',
+          buffer = '[File]',
+          path = '[Path]',
+        })[entry.source.name]
         return vim_item
       end
     })
   },
-
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' }, -- For vsnip users.
@@ -121,3 +115,4 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
+

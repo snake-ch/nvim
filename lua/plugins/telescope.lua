@@ -6,8 +6,9 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 
 -- see https://github.com/nvim-telescope/telescope.nvim/issues/522
 -- install ripgrep from https://github.com/BurntSushi/ripgrep
-require('telescope').setup{ 
-  defaults = { 
+require('telescope').setup {
+  defaults = {
     file_ignore_patterns = {}
   }
 }
+
