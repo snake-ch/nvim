@@ -1,12 +1,16 @@
 require('bufferline').setup {
   options = {
-    numbers = 'none',     -- "none" | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string
+    numbers = 'none',
     diagnostics = 'nvim_lsp',
-    offsets = { {
-      filetype = 'NvimTree',
-      text = 'File Explorer',
-      text_align = 'left',
-      separator = true
-    } }
+    offsets = {
+      {
+        filetype = 'NvimTree',
+        text = 'File Explorer',
+        text_align = 'left',
+        separator = true
+      }
+    },
+    show_close_icon = false,
+    show_buffer_close_icons = false,
   }
 }

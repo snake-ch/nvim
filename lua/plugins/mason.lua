@@ -1,5 +1,6 @@
 require('mason').setup({
   ui = {
+    border = 'rounded',
     icons = {
       package_installed = '✓',
       package_pending = '➜',
@@ -9,10 +10,6 @@ require('mason').setup({
 })
 
 require('mason-lspconfig').setup({
-  ensure_installed = {
-    'gopls',
-    'pyright',
-    'lua_ls'
-  },
+  ensure_installed = { 'lua_ls' },
   automatic_installation = true,
 })
