@@ -4,7 +4,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 opt.number = true
-opt.relativenumber = false
+opt.relativenumber = true
 
 opt.encoding = 'utf-8'
 opt.fileencoding = 'utf-8'
@@ -44,3 +44,6 @@ opt.updatetime = 300
 opt.timeoutlen = 500
 
 opt.cmdheight = 0
+
+vim.wo.foldmethod = 'indent'
+vim.wo.foldlevel = 99
