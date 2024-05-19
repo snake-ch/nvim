@@ -3,12 +3,14 @@ local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local servers = {
-  'gopls',
   'lua_ls',
+  'gopls',
+  'bufls',
   'emmet_language_server',
-  'tsserver',
+  'html',
   'cssls',
   'tailwindcss',
+  'tsserver',
 }
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
