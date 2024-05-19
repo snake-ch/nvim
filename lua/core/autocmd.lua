@@ -6,10 +6,9 @@ local autoGroup = vim.api.nvim_create_augroup('autoGroup', {
 -- format on save
 autocmd('BufWritePre', {
   group = autoGroup,
-  -- pattern = { '*.go', '*.py', '*.lua', '*.proto', '*.css', '*.ts', '*.tsx' },
-  pattern = '*',
-  callback = function()
-    vim.lsp.buf.format()
+  pattern = { '*.*' },
+  callback = function(args)
+    vim.lsp.buf.format({ async = false, timeout_ms = 5000, bufnr = args.buf })
   end,
 })
 
