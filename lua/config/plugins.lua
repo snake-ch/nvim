@@ -94,10 +94,7 @@ return {
     config = function()
       require('plugins.treesitter')
     end,
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'JoosepAlviste/nvim-ts-context-commentstring',
-    }
+    dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
   },
   {
     'numToStr/Comment.nvim',
@@ -126,7 +123,7 @@ return {
     end
   },
   {
-    'phaazon/hop.nvim',
+    'hadronized/hop.nvim',
     branch = 'v2',
     config = function()
       require('plugins.hop')
