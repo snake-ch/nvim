@@ -1,24 +1,44 @@
 return {
   -- Theme
   {
-    'navarasu/onedark.nvim',
+    'folke/tokyonight.nvim',
+    opts = {},
     config = function()
-      require('plugins.onedark')
-    end,
+      require('plugins.tokyonight')
+    end
   },
 
   -- Navigating (Telescope/Tree/Buffer/Status)
   {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    init = function()
+      vim.cmd [[hi DashboardHeader guifg=#ee872d gui=bold]]
+      vim.cmd [[hi DashboardProjectTitle guifg=#f7768e gui=bold]]
+      vim.cmd [[hi DashboardProjectIcon guifg=#89ca78]]
+      vim.cmd [[hi DashboardMruTitle guifg=#d55fde gui=bold]]
+      vim.cmd [[hi DashboardShortCut guifg=#89ca78 gui=bold]]
+    end,
+    config = function()
+      require('plugins.dashboard')
+    end,
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
+  {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     config = function()
-      require("plugins.telescope")
+      require('plugins.telescope')
     end,
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
+      { 'nvim-telescope/telescope-file-browser.nvim' },
+    },
   },
   {
     'nvim-tree/nvim-tree.lua',
-    version = "*",
+    version = '*',
     config = function()
       require('plugins.nvim-tree')
     end,
@@ -26,7 +46,7 @@ return {
   },
   {
     'akinsho/bufferline.nvim',
-    version = "*",
+    version = '*',
     config = function()
       require('plugins.bufferline')
     end,
@@ -34,11 +54,19 @@ return {
   },
   {
     'nvim-lualine/lualine.nvim',
-    version = "*",
+    version = '*',
     config = function()
       require('plugins.lualine')
     end,
     dependencies = 'nvim-tree/nvim-web-devicons',
+  },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('plugins.noice')
+    end,
+    dependencies = { 'MunifTanjim/nui.nvim', 'rcarriga/nvim-notify' }
   },
 
   -- LSP
@@ -47,16 +75,14 @@ return {
     config = function()
       require('plugins.mason')
     end,
+    dependencies = 'williamboman/mason-lspconfig.nvim'
   },
   {
     'neovim/nvim-lspconfig',
     config = function()
       require('plugins.lsp')
     end,
-    dependencies = {
-      'williamboman/mason-lspconfig.nvim',
-      'hrsh7th/cmp-nvim-lsp',
-    },
+    dependencies = 'hrsh7th/cmp-nvim-lsp',
   },
   -- LSP completion
   {
@@ -70,21 +96,10 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
-      -- snippet
-      'hrsh7th/cmp-vsnip',
-      'hrsh7th/vim-vsnip',
+      -- luasnip
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
       'rafamadriz/friendly-snippets'
-    }
-  },
-  -- LSP addon
-  {
-    'nvimdev/lspsaga.nvim',
-    config = function()
-      require('plugins.lspsaga')
-    end,
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'nvim-tree/nvim-web-devicons',
     }
   },
 
@@ -97,15 +112,12 @@ return {
     dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
   },
   {
-    'numToStr/Comment.nvim',
-    dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
-    config = function()
-      require('plugins.comment')
-    end,
+    'folke/ts-comments.nvim',
+    event = 'VeryLazy',
+    opts = {},
   },
   {
     'windwp/nvim-autopairs',
-    event = 'InsertEnter',
     config = function()
       require('plugins.autopairs')
     end,
@@ -123,10 +135,12 @@ return {
     end
   },
   {
-    'hadronized/hop.nvim',
-    branch = 'v2',
-    config = function()
-      require('plugins.hop')
-    end,
-  },
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    opts = {},
+    keys = {
+      { '<leader>s', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end,       desc = 'Flash' },
+      { '<leader>S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
+    },
+  }
 }
