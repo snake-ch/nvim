@@ -30,14 +30,9 @@ local kind_icons = {
   TypeParameter = '',
 }
 
-local has_words_before = function()
-  unpack = unpack or table.unpack
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
-end
-
 cmp.setup({
   snippet = {
+    -- REQUIRED - you must specify a snippet engine
     expand = function(args)
       luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end
@@ -69,8 +64,6 @@ cmp.setup({
         cmp.select_next_item()
       elseif luasnip.locally_jumpable(1) then
         luasnip.jump(1)
-      elseif has_words_before() then
-        cmp.complete()
       else
         fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
       end
@@ -79,7 +72,7 @@ cmp.setup({
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
+      elseif luasnip.locally_jumpable(-1) then
         luasnip.jump(-1)
       else
         fallback()
@@ -91,7 +84,7 @@ cmp.setup({
     fields = { 'kind', 'abbr', 'menu' },
     format = function(entry, vim_item)
       -- Kind icons
-      vim_item.kind = (kind_icons[vim_item.kind] or '')
+      vim_item.kind = kind_icons[vim_item.kind] or ''
       -- Source
       vim_item.menu = ({
         nvim_lsp = '[LSP]',
