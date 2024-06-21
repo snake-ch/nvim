@@ -124,6 +124,11 @@ local on_attach = function(client, bufnr)
       end,
     })
   end
+
+  -- inlay hint
+  if client.supports_method('textDocument/inlayHint', { bufnr = bufnr }) then
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
 end
 
 
@@ -134,6 +139,7 @@ end
 --     capabilities = capabilities,
 --     handlers = handlers
 -- }
+
 lspconfig['gopls'].setup {
   on_attach = on_attach,
   capabilities = capabilities,
