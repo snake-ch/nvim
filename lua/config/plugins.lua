@@ -8,7 +8,7 @@ return {
     end
   },
 
-  -- Navigating (Telescope/Tree/Buffer/Status)
+  -- UI
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
@@ -42,7 +42,7 @@ return {
     config = function()
       require('plugins.nvim-tree')
     end,
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
   {
     'akinsho/bufferline.nvim',
@@ -50,7 +50,7 @@ return {
     config = function()
       require('plugins.bufferline')
     end,
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
   {
     'nvim-lualine/lualine.nvim',
@@ -58,7 +58,7 @@ return {
     config = function()
       require('plugins.lualine')
     end,
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
   {
     'folke/noice.nvim',
@@ -75,16 +75,24 @@ return {
     config = function()
       require('plugins.mason')
     end,
-    dependencies = 'williamboman/mason-lspconfig.nvim'
+    dependencies = { 'williamboman/mason-lspconfig.nvim' }
   },
   {
     'neovim/nvim-lspconfig',
     config = function()
       require('plugins.lsp')
     end,
-    dependencies = 'hrsh7th/cmp-nvim-lsp',
+    dependencies = { 'hrsh7th/cmp-nvim-lsp' },
   },
-  -- LSP completion
+  {
+    'nvim-treesitter/nvim-treesitter',
+    config = function()
+      require('plugins.treesitter')
+    end,
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  },
+
+  -- Editing
   {
     'hrsh7th/nvim-cmp',
     config = function()
@@ -99,22 +107,9 @@ return {
       -- luasnip
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
+      -- snippets
       'rafamadriz/friendly-snippets'
     }
-  },
-
-  -- Language
-  {
-    'nvim-treesitter/nvim-treesitter',
-    config = function()
-      require('plugins.treesitter')
-    end,
-    dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
-  },
-  {
-    'folke/ts-comments.nvim',
-    event = 'VeryLazy',
-    opts = {},
   },
   {
     'windwp/nvim-autopairs',
@@ -133,6 +128,11 @@ return {
     config = function()
       require('plugins.null')
     end
+  },
+  {
+    'folke/ts-comments.nvim',
+    event = 'VeryLazy',
+    opts = {},
   },
   {
     'folke/flash.nvim',
