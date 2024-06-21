@@ -9,7 +9,7 @@ vim.keymap.set('n', '<leader>fp', ':Telescope file_browser<CR>', {})
 -- install ripgrep from https://github.com/BurntSushi/ripgrep
 require('telescope').setup {
   defaults = {
-    -- initial_mode = 'normal',
+    initial_mode = 'normal',
     layout_strategy = 'vertical',
     layout_config = {
       horizontal = {
