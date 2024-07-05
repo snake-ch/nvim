@@ -1,5 +1,4 @@
 local null_ls = require('null-ls')
-local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 
 local sources = {
   -- go
@@ -18,8 +17,8 @@ local sources = {
   null_ls.builtins.formatting.buf,
   null_ls.builtins.diagnostics.buf,
 
-  -- typescript
-  -- null_ls.builtins.formatting.prettier,
+  -- web
+  null_ls.builtins.formatting.prettier,
   null_ls.builtins.formatting.rustywind,
 }
 
