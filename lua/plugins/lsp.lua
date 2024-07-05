@@ -47,7 +47,7 @@ local servers = {
   -- 'gopls',
   'html',
   'emmet_language_server',
-  'cssls',
+  -- 'cssls',
   'tailwindcss',
   'tsserver',
   'eslint',
@@ -96,19 +96,17 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>fe', builtin.diagnostics, bufopts)
   end
 
-  -- format on save
-  if client.server_capabilities.documentFormattingProvider then
+  if client.supports_method('textDocument/formatting') then
+    -- format on save
     vim.api.nvim_create_autocmd('BufWritePre', {
-      group = vim.api.nvim_create_augroup('Format', { clear = true }),
+      group = vim.api.nvim_create_augroup('LspFormatting', { clear = false }),
       buffer = bufnr,
       callback = function(args)
         vim.lsp.buf.format({ async = false, bufnr = args.buf })
       end
     })
-  end
 
-  -- Show line diagnostics automatically in hover window
-  if client.supports_method('textDocument/formatting') then
+    -- Show line diagnostics automatically in hover window
     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
       group = vim.api.nvim_create_augroup('float_diagnostic', { clear = true }),
       buffer = bufnr,
@@ -145,6 +143,30 @@ lspconfig['gopls'].setup {
   capabilities = capabilities,
   handlers = handlers,
   settings = { ['gopls'] = { gofumpt = true } }
+}
+
+lspconfig['cssls'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  handlers = handlers,
+  settings = {
+    css = { validate = false },
+    less = { validate = false },
+    scss = { validate = false },
+  }
+}
+
+lspconfig['cssmodules_ls'].setup {
+  on_attach = function(client, bufnr)
+    -- avoid accepting `definitionProvider` responses from this LSP
+    client.server_capabilities.definitionProvider = false
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+  handlers = handlers,
+  init_options = {
+    camelCase = true,
+  },
 }
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
