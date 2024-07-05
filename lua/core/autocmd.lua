@@ -1,8 +1,10 @@
 local autocmd = vim.api.nvim_create_autocmd
-local autoGroup = vim.api.nvim_create_augroup('autoGroup', { clear = true })
+local function augroup(name)
+  return vim.api.nvim_create_augroup('snake_' .. name, { clear = true })
+end
 
 autocmd('BufEnter', {
-  group = autoGroup,
+  group = augroup('formatoptions'),
   pattern = '*',
   callback = function()
     vim.opt.formatoptions = vim.opt.formatoptions
@@ -11,21 +13,31 @@ autocmd('BufEnter', {
   end,
 })
 
+-- Check if we need to reload the file when it changed
+vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+  group = augroup('checktime'),
+  callback = function()
+    if vim.o.buftype ~= 'nofile' then
+      vim.cmd('checktime')
+    end
+  end,
+})
+
 -- Copy wsl via windows clipboard
-if vim.fn.has('wsl') then
-  autocmd({ 'TextYankPost' }, {
-    group = autoGroup,
-    pattern = '*',
-    callback = function()
-      vim.cmd("call system('/mnt/c/windows/system32/clip.exe ',@\")")
-    end,
-  })
-end
+-- if vim.fn.has('wsl') then
+--   autocmd({ 'TextYankPost' }, {
+--     group = augroup('wsl_yank'),
+--     pattern = '*',
+--     callback = function()
+--       vim.cmd("call system('/mnt/c/windows/system32/clip.exe ',@\")")
+--     end,
+--   })
+-- end
 
 -- Copy/Paste when using ssh on a remote servers
 if vim.clipboard and vim.clipboard.osc52 then
   autocmd('VimEnter', {
-    group = autoGroup,
+    group = augroup('ssh_clipboard'),
     callback = function()
       if vim.env.SSH_CONNECTION and vim.clipboard.osc52 then
         vim.g.clipboard = {
