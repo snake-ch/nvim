@@ -24,7 +24,7 @@ require('dashboard').setup {
     -- action can be a functino type, e.g.
     -- action = func(path) vim.cmd('Telescope find_files cwd=' .. path) end
     project = { enable = true, limit = 8, icon = '󰏓 ', label = 'Recent Projects:', action = 'Telescope find_files cwd=' },
-    mru = { limit = 10, icon = ' ', label = 'Most Recent Files:', cwd_only = false },
+    mru = { limit = 0, icon = ' ', label = 'Most Recent Files:', cwd_only = false },
     footer = {}, -- footer
   },
   hide               = {
