@@ -10,21 +10,6 @@ return {
 
   -- UI
   {
-    'nvimdev/dashboard-nvim',
-    event = 'VimEnter',
-    init = function()
-      vim.cmd [[hi DashboardHeader guifg=#ee872d gui=bold]]
-      vim.cmd [[hi DashboardProjectTitle guifg=#f7768e gui=bold]]
-      vim.cmd [[hi DashboardProjectIcon guifg=#89ca78]]
-      vim.cmd [[hi DashboardMruTitle guifg=#d55fde gui=bold]]
-      vim.cmd [[hi DashboardShortCut guifg=#89ca78 gui=bold]]
-    end,
-    config = function()
-      require('plugins.dashboard')
-    end,
-    dependencies = { 'nvim-tree/nvim-web-devicons' }
-  },
-  {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     config = function()
@@ -34,6 +19,7 @@ return {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
       { 'nvim-telescope/telescope-file-browser.nvim' },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
     },
   },
   {
