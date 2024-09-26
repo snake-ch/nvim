@@ -41,17 +41,6 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = {
-  'lua_ls',
-  -- 'gopls',
-  'html',
-  'emmet_language_server',
-  -- 'cssls',
-  'tailwindcss',
-  'tsserver',
-  'eslint',
-}
 
 -- Customized on_attach function
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -169,6 +158,15 @@ lspconfig['cssmodules_ls'].setup {
   },
 }
 
+-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+local servers = {
+  'lua_ls',
+  'html',
+  'emmet_language_server',
+  'tailwindcss',
+  'ts_ls',
+  'eslint',
+}
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 for _, lsp in ipairs(servers) do
