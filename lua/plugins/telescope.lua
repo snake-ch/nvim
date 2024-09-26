@@ -46,6 +46,11 @@ require('telescope').setup {
     file_browser = {
       theme = 'ivy',
       hijack_netrw = true, -- disables netrw and use telescope-file-browser in its place
+    },
+    ['ui-select'] = {
+      require('telescope.themes').get_dropdown {
+        -- even more opts
+      }
     }
   },
 }
@@ -53,3 +58,4 @@ require('telescope').setup {
 -- to make extensions work you need to call load_extension, somewhere after setup function.
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('file_browser')
+require('telescope').load_extension('ui-select')
