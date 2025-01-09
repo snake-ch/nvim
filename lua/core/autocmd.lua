@@ -23,17 +23,6 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   end,
 })
 
--- Copy wsl via windows clipboard
--- if vim.fn.has('wsl') then
---   autocmd({ 'TextYankPost' }, {
---     group = augroup('wsl_yank'),
---     pattern = '*',
---     callback = function()
---       vim.cmd("call system('/mnt/c/windows/system32/clip.exe ',@\")")
---     end,
---   })
--- end
-
 -- Copy/Paste when using ssh on a remote servers
 if vim.clipboard and vim.clipboard.osc52 then
   autocmd('VimEnter', {
