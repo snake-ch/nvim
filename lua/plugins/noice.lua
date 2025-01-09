@@ -15,6 +15,12 @@ require('noice').setup({
       ['vim.lsp.util.stylize_markdown'] = true,
       ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
     },
+    hover = {
+      silent = true,
+    }
+  },
+  messages = {
+    enabled = false,
   },
   -- you can enable a preset for easier configuration
   presets = {
@@ -25,19 +31,19 @@ require('noice').setup({
     lsp_doc_border = false,       -- add a border to hover docs and signature help
   },
   routes = {
-    -- {
-    --   filter = {
-    --     event = 'msg_show',
-    --     any = {
-    --       { find = '%d+L, %d+B' },
-    --       { find = '; after #%d+' },
-    --       { find = '; before #%d+' },
-    --       { find = '%d fewer lines' },
-    --       { find = '%d more lines' },
-    --     }
-    --   },
-    --   opts = { skip = true },
-    -- },
+    {
+      filter = {
+        event = 'msg_show',
+        any = {
+          { find = '%d+L, %d+B' },
+          { find = '; after #%d+' },
+          { find = '; before #%d+' },
+          { find = '%d fewer lines' },
+          { find = '%d more lines' },
+        }
+      },
+      opts = { skip = true },
+    },
     {
       filter = {
         event = 'msg_show',
@@ -46,12 +52,5 @@ require('noice').setup({
       },
       opts = { skip = true },
     },
-    {
-      filter = {
-        event = 'notify',
-        find = 'No information available',
-      },
-      opts = { skip = true },
-    }
   },
 })
