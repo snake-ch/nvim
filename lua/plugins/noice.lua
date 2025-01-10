@@ -19,9 +19,6 @@ require('noice').setup({
       silent = true,
     }
   },
-  messages = {
-    enabled = false,
-  },
   -- you can enable a preset for easier configuration
   presets = {
     bottom_search = false,        -- use a classic bottom cmdline for search
@@ -42,15 +39,6 @@ require('noice').setup({
           { find = '%d more lines' },
         }
       },
-      opts = { skip = true },
-    },
-    {
-      filter = {
-        event = 'msg_show',
-        kind = '',
-        find = 'written',
-      },
-      opts = { skip = true },
     },
   },
 })
