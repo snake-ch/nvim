@@ -1,8 +1,9 @@
+local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 vim.keymap.set('n', '<leader>fp', ':Telescope file_browser<CR>', {})
 
 -- see https://github.com/nvim-telescope/telescope.nvim/issues/522
@@ -30,7 +31,15 @@ require('telescope').setup {
   },
   pickers = {
     find_files = {
-      find_command = { 'fdfind' }
+      find_command = { 'fdfind', '--type', 'f', '--strip-cwd-prefix' }
+    },
+    buffers = {
+      ignore_current_buffer = true,
+      mappings = {
+        n = {
+          ['dd'] = actions.delete_buffer + actions.move_to_top,
+        },
+      }
     },
     current_buffer_fuzzy_find = {
       previewer = false,
@@ -44,7 +53,7 @@ require('telescope').setup {
       case_mode = 'smart_case',       -- or 'ignore_case' or 'respect_case' the default case_mode is 'smart_case'
     },
     file_browser = {
-      theme = 'ivy',
+      -- theme = 'ivy',
       hijack_netrw = true, -- disables netrw and use telescope-file-browser in its place
     },
     ['ui-select'] = {
