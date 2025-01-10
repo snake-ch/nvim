@@ -2,9 +2,8 @@ return {
   -- Theme
   {
     'folke/tokyonight.nvim',
-    opts = {},
     config = function()
-      require('plugins.tokyonight')
+      vim.cmd [[colorscheme tokyonight]]
     end
   },
 
@@ -31,19 +30,8 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
   {
-    'akinsho/bufferline.nvim',
-    version = '*',
-    config = function()
-      require('plugins.bufferline')
-    end,
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-  },
-  {
     'nvim-lualine/lualine.nvim',
-    version = '*',
-    config = function()
-      require('plugins.lualine')
-    end,
+    opts = {},
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
   {
@@ -58,9 +46,16 @@ return {
   -- LSP
   {
     'williamboman/mason.nvim',
-    config = function()
-      require('plugins.mason')
-    end,
+    opts = {
+      ui = {
+        border = 'rounded',
+        icons = {
+          package_installed = '✓',
+          package_pending = '➜',
+          package_uninstalled = '✗'
+        }
+      }
+    },
     dependencies = { 'williamboman/mason-lspconfig.nvim' }
   },
   {
@@ -99,15 +94,12 @@ return {
   },
   {
     'windwp/nvim-autopairs',
-    config = function()
-      require('plugins.autopairs')
-    end,
+    event = 'InsertEnter',
+    opts = {},
   },
   {
     'windwp/nvim-ts-autotag',
-    config = function()
-      require('plugins.autotag')
-    end,
+    opt = {},
   },
   {
     'nvimtools/none-ls.nvim',
