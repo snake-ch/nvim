@@ -10,7 +10,7 @@ return {
     },
     opts = {
       sort = {
-        sorter = 'extension',
+        sorter = 'extension'
       },
       view = {
         float = {
@@ -30,13 +30,13 @@ return {
               row = center_y,
               col = center_x,
               width = window_w_int,
-              height = window_h_int,
+              height = window_h_int
             }
-          end,
+          end
         },
         width = function()
           return math.floor(vim.opt.columns:get() * 0.5)
-        end,
+        end
       },
       filters = {
         dotfiles = true,
@@ -45,7 +45,7 @@ return {
       git = {
         enable = false
       }
-    },
+    }
   },
 
   -- Status Line
@@ -55,10 +55,10 @@ return {
     opts = {
       options = {
         section_separators = { left = '', right = '' },
-        component_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' }
       },
       sections = { lualine_x = { 'encoding', 'filetype' } }
-    },
+    }
   },
 
   -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
@@ -67,7 +67,7 @@ return {
     opts = {
       fps = 30,
       stages = 'fade',
-      timeout = 2000,
+      timeout = 2000
     }
   },
   {
@@ -80,14 +80,14 @@ return {
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
           ['vim.lsp.util.stylize_markdown'] = true,
-          ['cmp.entry.get_documentation'] = true,
+          ['cmp.entry.get_documentation'] = true
         },
         hover = { silent = true },
-        documentation = { opts = { scrollbar = false } },
+        documentation = { opts = { scrollbar = false } }
       },
       presets = {
         command_palette = true,       -- position the cmdline and popupmenu together
-        long_message_to_split = true, -- long messages will be sent to a split
+        long_message_to_split = true  -- long messages will be sent to a split
       },
       views = { hover = { size = { max_width = 80 } } },
       routes = {
@@ -99,10 +99,10 @@ return {
               { find = '; after #%d+' },
               { find = '; before #%d+' },
               { find = '%d fewer lines' },
-              { find = '%d more lines' },
+              { find = '%d more lines' }
             }
-          },
-        },
+          }
+        }
       }
     }
   },
@@ -116,7 +116,7 @@ return {
     opts = {},
     keys = {
       { '<leader>s', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end,       desc = 'Flash' },
-      { '<leader>S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
-    },
+      { '<leader>S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' }
+    }
   }
 }

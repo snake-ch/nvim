@@ -11,7 +11,7 @@ return {
           package_uninstalled = '✗'
         }
       }
-    },
+    }
   },
 
   -- Lspconfig
@@ -19,7 +19,7 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = {
       { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim', config = true },
+      { 'williamboman/mason-lspconfig.nvim', config = true }
     },
     init = function()
       -- change diagnostic symbols in the sign column (gutter)
@@ -51,7 +51,7 @@ return {
               buffer = args.buf,
               callback = function()
                 vim.lsp.buf.format({ async = false, bufnr = args.buf, id = client.id })
-              end,
+              end
             })
           end
 
@@ -118,7 +118,7 @@ return {
         settings = {
           css = { validate = false },
           less = { validate = false },
-          scss = { validate = false },
+          scss = { validate = false }
         }
       }
 
@@ -129,8 +129,8 @@ return {
         end,
         capabilities = capabilities,
         init_options = {
-          camelCase = true,
-        },
+          camelCase = true
+        }
       }
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -139,10 +139,10 @@ return {
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
           on_attach = on_attach,
-          capabilities = capabilities,
+          capabilities = capabilities
         }
       end
-    end,
+    end
   },
 
   -- Inject LSP diagnostics, code actions, and more via Lua.
@@ -163,7 +163,7 @@ return {
           nls.builtins.diagnostics.buf,
           -- web
           nls.builtins.formatting.prettier,
-          nls.builtins.formatting.rustywind,
+          nls.builtins.formatting.rustywind
         }
       }
       return opts
@@ -171,5 +171,5 @@ return {
     config = function(_, opts)
       require('null-ls').setup(opts)
     end
-  },
+  }
 }

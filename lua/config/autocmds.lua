@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     vim.opt.formatoptions = vim.opt.formatoptions
         - 'o' -- O and o, don't continue comments
         + 'r' -- But do continue when pressing enter.
-  end,
+  end
 })
 
 -- Check if we need to reload the file when it changed
@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
     if vim.o.buftype ~= 'nofile' then
       vim.cmd('checktime')
     end
-  end,
+  end
 })
 
 -- Copy/Paste when using ssh on a remote server
@@ -32,14 +32,14 @@ if vim.clipboard and vim.clipboard.osc52 then
           name = 'OSC 52',
           copy = {
             ['+'] = require('vim.clipboard.osc52').copy,
-            ['*'] = require('vim.clipboard.osc52').copy,
+            ['*'] = require('vim.clipboard.osc52').copy
           },
           paste = {
             ['+'] = require('vim.clipboard.osc52').paste,
-            ['*'] = require('vim.clipboard.osc52').paste,
-          },
+            ['*'] = require('vim.clipboard.osc52').paste
+          }
         }
       end
-    end,
+    end
   })
 end

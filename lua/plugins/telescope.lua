@@ -8,7 +8,7 @@ return {
       { '<leader>fg', function() require('telescope.builtin').live_grep() end,  desc = 'Telescope live grep',    remap = true },
       { '<leader>fb', function() require('telescope.builtin').buffers() end,    desc = 'Telescope buffers',      remap = true },
       { '<leader>fh', function() require('telescope.builtin').help_tags() end,  desc = 'Telescope help tags',    remap = true },
-      { '<leader>fp', '<cmd>Telescope file_browser<CR>',                        desc = 'Telescope file browser', remap = true },
+      { '<leader>fp', '<cmd>Telescope file_browser<CR>',                        desc = 'Telescope file browser', remap = true }
     },
     opts = function()
       local actions = require('telescope.actions')
@@ -28,16 +28,16 @@ return {
             mappings = {
               n = {
                 ['dd'] = actions.delete_buffer + actions.move_to_top
-              },
+              }
             }
           },
           current_buffer_fuzzy_find = {
             previewer = false
-          },
+          }
         },
         extensions = {
           ['ui-select'] = require('telescope.themes').get_dropdown {}
-        },
+        }
       }
       return opts
     end,
@@ -52,7 +52,7 @@ return {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
       { 'nvim-telescope/telescope-file-browser.nvim' },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
-    },
-  },
+      { 'nvim-telescope/telescope-ui-select.nvim' }
+    }
+  }
 }

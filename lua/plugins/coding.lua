@@ -24,7 +24,7 @@ return {
     'saghen/blink.cmp',
     dependencies = {
       { 'rafamadriz/friendly-snippets' },
-      { 'L3MON4D3/LuaSnip' },
+      { 'L3MON4D3/LuaSnip' }
     },
     version = '*',
     opts = {
@@ -50,7 +50,7 @@ return {
           auto_show = true,
           auto_show_delay_ms = 0,
           window = { max_height = 30, border = 'rounded', scrollbar = false }
-        },
+        }
       },
       keymap = {
         preset = 'none',
@@ -60,7 +60,7 @@ return {
         ['<C-p>'] = { 'select_prev', 'fallback' },
         ['<C-n>'] = { 'select_next', 'fallback' },
         ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' }
       },
       appearance = {
         kind_icons = {
@@ -93,11 +93,11 @@ return {
           Folder = '󰉋',
           Event = '',
           Operator = '󰆕',
-          TypeParameter = '',
+          TypeParameter = ''
         }
       },
       snippets = { preset = 'luasnip' },
-      sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
+      sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } }
     },
     opts_extend = { 'sources.default' }
   },
@@ -106,19 +106,19 @@ return {
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
-    opts = {},
+    opts = {}
   },
 
   -- Automatically add closing tags for HTML and JSX
   {
     'windwp/nvim-ts-autotag',
-    opt = {},
+    opt = {}
   },
 
   -- Comments
   {
     'folke/ts-comments.nvim',
     event = 'VeryLazy',
-    opts = {},
-  },
+    opts = {}
+  }
 }
