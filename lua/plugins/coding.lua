@@ -31,8 +31,8 @@ return {
       completion = {
         list = {
           selection = {
-            preselect = false,
-            auto_insert = function(ctx) return ctx.mode == 'cmdline' end
+            preselect = false
+            -- auto_insert = function(ctx) return ctx.mode == 'cmdline' end
           }
         },
         menu = {
@@ -112,7 +112,7 @@ return {
   -- Automatically add closing tags for HTML and JSX
   {
     'windwp/nvim-ts-autotag',
-    opt = {}
+    opts = {}
   },
 
   -- Comments
