@@ -70,9 +70,10 @@ return {
         local function opts(desc)
           return { noremap = true, silent = true, buffer = bufnr, desc = 'LSP ' .. desc }
         end
-        -- vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
-        -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        -- vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
+        vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
+        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
+
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts 'Goto Declaration')
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts 'Goto Definition')
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts 'Hover')
@@ -128,48 +129,29 @@ return {
           on_attach(client, bufnr)
         end,
         capabilities = capabilities,
-        init_options = {
-          camelCase = true
-        }
+        init_options = { camelCase = true }
+      }
+
+      lspconfig['eslint'].setup {
+        on_attach = function(client, bufnr)
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = bufnr,
+            command = 'EslintFixAll'
+          })
+          on_attach(client, bufnr)
+        end,
+        capabilities = capabilities
       }
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      local servers = { 'lua_ls', 'html', 'emmet_language_server', 'tailwindcss', 'ts_ls', 'eslint' }
+      local servers = { 'lua_ls', 'rust_analyzer', 'html', 'tailwindcss', 'vtsls' }
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {
           on_attach = on_attach,
           capabilities = capabilities
         }
       end
-    end
-  },
-
-  -- Inject LSP diagnostics, code actions, and more via Lua.
-  {
-    'nvimtools/none-ls.nvim',
-    opts = function()
-      local nls = require('null-ls')
-      local opts = {
-        sources = {
-          -- go
-          nls.builtins.formatting.goimports,
-          nls.builtins.formatting.goimports_reviser,
-          nls.builtins.diagnostics.golangci_lint,
-          nls.builtins.code_actions.impl,
-          nls.builtins.code_actions.gomodifytags,
-          -- protobuf
-          nls.builtins.formatting.buf,
-          nls.builtins.diagnostics.buf,
-          -- web
-          nls.builtins.formatting.prettier,
-          nls.builtins.formatting.rustywind
-        }
-      }
-      return opts
-    end,
-    config = function(_, opts)
-      require('null-ls').setup(opts)
     end
   }
 }
