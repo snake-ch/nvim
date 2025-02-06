@@ -14,7 +14,7 @@ return {
       local actions = require('telescope.actions')
       local opts = {
         defaults = {
-          initial_mode = 'normal',
+          -- initial_mode = 'normal',
           layout_strategy = 'vertical',
           -- sorting_strategy = 'ascending',
           file_ignore_patterns = { 'node_modules/', '.git/' }
