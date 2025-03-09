@@ -4,11 +4,10 @@ return {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     keys = {
-      { '<leader>ff', function() require('telescope.builtin').find_files() end, desc = 'Telescope find files',   remap = true },
-      { '<leader>fg', function() require('telescope.builtin').live_grep() end,  desc = 'Telescope live grep',    remap = true },
-      { '<leader>fb', function() require('telescope.builtin').buffers() end,    desc = 'Telescope buffers',      remap = true },
-      { '<leader>fh', function() require('telescope.builtin').help_tags() end,  desc = 'Telescope help tags',    remap = true },
-      { '<leader>fp', '<cmd>Telescope file_browser<CR>',                        desc = 'Telescope file browser', remap = true }
+      { '<leader>ff', function() require('telescope.builtin').find_files() end, desc = 'Telescope find files', remap = true },
+      { '<leader>fg', function() require('telescope.builtin').live_grep() end,  desc = 'Telescope live grep',  remap = true },
+      { '<leader>fb', function() require('telescope.builtin').buffers() end,    desc = 'Telescope buffers',    remap = true },
+      { '<leader>fh', function() require('telescope.builtin').help_tags() end,  desc = 'Telescope help tags',  remap = true }
     },
     opts = function()
       local actions = require('telescope.actions')
@@ -26,9 +25,7 @@ return {
           buffers = {
             ignore_current_buffer = true,
             mappings = {
-              n = {
-                ['dd'] = actions.delete_buffer + actions.move_to_top
-              }
+              n = { ['dd'] = actions.delete_buffer + actions.move_to_top }
             }
           },
           current_buffer_fuzzy_find = {
@@ -45,13 +42,11 @@ return {
       require('telescope').setup(opts)
       -- to make extensions work you need to call load_extension, somewhere after setup function.
       require('telescope').load_extension('fzf')
-      require('telescope').load_extension('file_browser')
       require('telescope').load_extension('ui-select')
     end,
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
-      { 'nvim-telescope/telescope-file-browser.nvim' },
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       { 'nvim-telescope/telescope-ui-select.nvim' }
     }
   }
