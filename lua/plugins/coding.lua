@@ -1,34 +1,8 @@
 return {
   -- Code completion
   {
-    'L3MON4D3/LuaSnip',
-    dependencies = {
-      { 'rafamadriz/friendly-snippets' }
-    },
-    version = 'v2.*',
-    config = function()
-      require('luasnip.loaders.from_vscode').lazy_load()
-
-      -- setup keybindings to tab
-      local luasnip = require('luasnip')
-      local function feedkey(key, mode)
-        vim.fn.feedkeys(vim.keycode(key), mode or vim.api.nvim_get_mode().mode)
-      end
-      vim.keymap.set({ 'i', 's' }, '<Tab>', function()
-        return luasnip.locally_jumpable() and luasnip.jump(1) or feedkey('<Tab>', 'n')
-      end, { desc = 'Luasnip - Jump to next node' })
-      vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
-        return luasnip.in_snippet() and luasnip.jumpable(-1) and luasnip.jump(-1) or feedkey('<S-Tab>', 'n')
-      end, { desc = 'Luasnip - Jump to previous node' })
-    end
-  },
-
-  {
     'saghen/blink.cmp',
-    dependencies = {
-      { 'rafamadriz/friendly-snippets' },
-      { 'L3MON4D3/LuaSnip' }
-    },
+    dependencies = { { 'rafamadriz/friendly-snippets' } },
     version = '*',
     opts = {
       completion = {
@@ -52,10 +26,10 @@ return {
       keymap = {
         preset = 'none',
         ['<CR>'] = { 'accept', 'fallback' },
-        ['<Tab>'] = { 'select_next', 'fallback' },
-        ['<S-Tab>'] = { 'select_prev', 'fallback' },
-        -- ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
-        -- ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+        -- ['<Tab>'] = { 'select_next', 'fallback' },
+        -- ['<S-Tab>'] = { 'select_prev', 'fallback' },
+        ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+        ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
         ['<C-p>'] = { 'select_prev', 'fallback' },
         ['<C-n>'] = { 'select_next', 'fallback' },
         ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
@@ -95,7 +69,6 @@ return {
           TypeParameter = ''
         }
       },
-      snippets = { preset = 'luasnip' },
       sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } }
     },
     opts_extend = { 'sources.default' }
