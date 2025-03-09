@@ -13,7 +13,7 @@ return {
     config = function()
       require('lint').linters_by_ft = {
         go = { 'golangcilint' },
-        proto = { 'buf' }
+        proto = { 'buf_lint' }
         -- javascript = { 'oxlint' },
         -- typescript = { 'oxlint' },
         -- javascriptreact = { 'oxlint' },
