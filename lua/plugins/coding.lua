@@ -6,7 +6,7 @@ return {
     version = '*',
     opts = {
       completion = {
-        list = { selection = { preselect = false } },
+        list = { selection = { preselect = false, auto_insert = false } },
         menu = {
           max_height = 12,
           border = 'rounded',
@@ -19,15 +19,13 @@ return {
         },
         documentation = {
           auto_show = true,
-          auto_show_delay_ms = 0,
+          auto_show_delay_ms = 500,
           window = { max_height = 30, border = 'rounded', scrollbar = false }
         }
       },
       keymap = {
         preset = 'none',
         ['<CR>'] = { 'accept', 'fallback' },
-        -- ['<Tab>'] = { 'select_next', 'fallback' },
-        -- ['<S-Tab>'] = { 'select_prev', 'fallback' },
         ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
         ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
         ['<C-p>'] = { 'select_prev', 'fallback' },
@@ -35,41 +33,8 @@ return {
         ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
         ['<C-f>'] = { 'scroll_documentation_down', 'fallback' }
       },
-      appearance = {
-        kind_icons = {
-          Text = '󰉿',
-          Method = '󰆧',
-          Function = '󰊕',
-          Constructor = '',
-
-          Field = '󰜢',
-          Variable = '󰀫',
-          Property = '󰜢',
-
-          Class = '󰠱',
-          Struct = '󰙅',
-          Interface = '',
-          Module = '',
-
-          Unit = '󰑭',
-          Value = '󰎠',
-          Enum = '',
-          EnumMember = '',
-
-          Keyword = '󰌋',
-          Constant = '󰏿',
-
-          Snippet = '',
-          Color = '󰏘',
-          File = '󰈙',
-          Reference = '󰈇',
-          Folder = '󰉋',
-          Event = '',
-          Operator = '󰆕',
-          TypeParameter = ''
-        }
-      },
-      sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } }
+      sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
+      fuzzy = { implementation = 'prefer_rust_with_warning' }
     },
     opts_extend = { 'sources.default' }
   },
