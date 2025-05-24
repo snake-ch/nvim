@@ -9,6 +9,8 @@ return {
       formatters_by_ft = {
         go = { 'goimports', 'goimports-reviser' },
         proto = { 'buf' },
+        python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
+        toml = { 'taplo' },
         html = { 'prettierd' },
         css = { 'prettierd' },
         json = { 'prettierd' },
