@@ -19,7 +19,7 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = {
       { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim', config = true }
+      { 'williamboman/mason-lspconfig.nvim', config = function() end }
     },
     init = function()
       -- change diagnostic symbols in the sign column (gutter)
@@ -46,7 +46,7 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
 
           -- format the current buffer on save
-          if client.supports_method('textDocument/formatting') then
+          if client:supports_method('textDocument/formatting') then
             vim.api.nvim_create_autocmd('BufWritePre', {
               buffer = args.buf,
               callback = function()
@@ -56,9 +56,14 @@ return {
           end
 
           -- inlay hint
-          if client.supports_method('textDocument/inlayHint') then
+          if client:supports_method('textDocument/inlayHint') then
             local mode = vim.api.nvim_get_mode().mode
             vim.lsp.inlay_hint.enable(mode == 'n' or mode == 'v', { bufnr = args.buf })
+          end
+
+          -- language specified
+          if client.name == 'ruff' then
+            client.server_capabilities.hoverProvider = false
           end
         end
       })
@@ -99,21 +104,37 @@ return {
       end
 
       -- setup lsp servers
-      local lspconfig = require('lspconfig')
       local capabilities = vim.tbl_deep_extend(
         'force',
         {},
         vim.lsp.protocol.make_client_capabilities(),
-        require('blink.cmp').get_lsp_capabilities()
+        require('blink.cmp').get_lsp_capabilities({}, false)
       )
 
-      lspconfig['gopls'].setup {
+      vim.lsp.config('gopls', {
         on_attach = on_attach,
         capabilities = capabilities,
         settings = { gopls = { gofumpt = true } }
-      }
+      })
 
-      lspconfig['cssls'].setup {
+      vim.lsp.config('pyright', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          pyright = {
+            -- Using Ruff's import organizer
+            disableOrganizeImports = true
+          },
+          python = {
+            analysis = {
+              -- Ignore all files for analysis to exclusively use Ruff for linting
+              ignore = { '*' }
+            }
+          }
+        }
+      })
+
+      vim.lsp.config('cssls', {
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
@@ -121,18 +142,19 @@ return {
           less = { validate = false },
           scss = { validate = false }
         }
-      }
+      })
 
-      lspconfig['cssmodules_ls'].setup {
+      vim.lsp.config('cssmodules_ls', {
         on_attach = function(client, bufnr)
           client.server_capabilities.definitionProvider = false
           on_attach(client, bufnr)
         end,
         capabilities = capabilities,
         init_options = { camelCase = true }
-      }
+      })
 
-      lspconfig['eslint'].setup {
+
+      vim.lsp.config('eslint', {
         on_attach = function(client, bufnr)
           vim.api.nvim_create_autocmd('BufWritePre', {
             buffer = bufnr,
@@ -141,16 +163,32 @@ return {
           on_attach(client, bufnr)
         end,
         capabilities = capabilities
-      }
+      })
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      local servers = { 'lua_ls', 'rust_analyzer', 'html', 'tailwindcss', 'vtsls' }
+      local servers = { 'lua_ls', 'html', 'tailwindcss', 'vtsls' }
       for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup {
+        vim.lsp.config(lsp, {
           on_attach = on_attach,
           capabilities = capabilities
-        }
+        })
+      end
+
+      local config_servers = {
+        'lua_ls',
+        'gopls',
+        'pyright',
+        'ruff',
+        'html',
+        'cssls',
+        'tailwindcss',
+        'cssmodules_ls',
+        'vtsls',
+        'eslint'
+      }
+      for _, lsp in ipairs(config_servers) do
+        vim.lsp.enable(lsp)
       end
     end
   }
