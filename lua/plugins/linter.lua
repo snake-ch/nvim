@@ -3,7 +3,7 @@ return {
     'mfussenegger/nvim-lint',
     events = { 'BufWritePost', 'BufReadPost', 'InsertLeave' },
     init = function()
-      vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost' }, {
+      vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufWritePost' }, {
         group = vim.api.nvim_create_augroup('Lint', { clear = true }),
         callback = function()
           require('lint').try_lint()

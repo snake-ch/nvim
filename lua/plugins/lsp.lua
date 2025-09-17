@@ -79,6 +79,7 @@ return {
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
         vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
 
+        -- default
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts 'Goto Declaration')
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts 'Goto Definition')
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts 'Hover')
@@ -92,7 +93,7 @@ return {
         vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts 'Next Diagnostic')
         vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts 'Location List')
 
-        -- for telescope
+        -- telescope
         local has_telescope, builtin = pcall(require, 'telescope.builtin')
         if has_telescope then
           vim.keymap.set('n', 'gr', builtin.lsp_references, opts 'References')
@@ -134,40 +135,41 @@ return {
         }
       })
 
-      vim.lsp.config('cssls', {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          css = { validate = false },
-          less = { validate = false },
-          scss = { validate = false }
-        }
-      })
+      -- vim.lsp.config('cssls', {
+      --   on_attach = on_attach,
+      --   capabilities = capabilities,
+      --   settings = {
+      --     css = { validate = false },
+      --     less = { validate = false },
+      --     scss = { validate = false }
+      --   }
+      -- })
 
-      vim.lsp.config('cssmodules_ls', {
-        on_attach = function(client, bufnr)
-          client.server_capabilities.definitionProvider = false
-          on_attach(client, bufnr)
-        end,
-        capabilities = capabilities,
-        init_options = { camelCase = true }
-      })
+      -- vim.lsp.config('cssmodules_ls', {
+      --   on_attach = function(client, bufnr)
+      --     client.server_capabilities.definitionProvider = false
+      --     on_attach(client, bufnr)
+      --   end,
+      --   capabilities = capabilities,
+      --   init_options = { camelCase = true }
+      -- })
 
 
-      vim.lsp.config('eslint', {
-        on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = bufnr,
-            command = 'EslintFixAll'
-          })
-          on_attach(client, bufnr)
-        end,
-        capabilities = capabilities
-      })
+      -- vim.lsp.config('eslint', {
+      --   on_attach = function(client, bufnr)
+      --     vim.api.nvim_create_autocmd('BufWritePre', {
+      --       buffer = bufnr,
+      --       command = 'EslintFixAll'
+      --     })
+      --     on_attach(client, bufnr)
+      --   end,
+      --   capabilities = capabilities
+      -- })
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      local servers = { 'lua_ls', 'html', 'tailwindcss', 'vtsls' }
+      -- local servers = { 'lua_ls', 'html', 'tailwindcss', 'vtsls' }
+      local servers = { 'lua_ls', 'ruff' }
       for _, lsp in ipairs(servers) do
         vim.lsp.config(lsp, {
           on_attach = on_attach,
@@ -179,13 +181,13 @@ return {
         'lua_ls',
         'gopls',
         'pyright',
-        'ruff',
-        'html',
-        'cssls',
-        'tailwindcss',
-        'cssmodules_ls',
-        'vtsls',
-        'eslint'
+        'ruff'
+        -- 'html',
+        -- 'cssls',
+        -- 'tailwindcss',
+        -- 'cssmodules_ls',
+        -- 'vtsls',
+        -- 'eslint'
       }
       for _, lsp in ipairs(config_servers) do
         vim.lsp.enable(lsp)
