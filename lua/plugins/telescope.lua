@@ -2,7 +2,7 @@ return {
   -- Fuzzy finder.
   {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
+    -- branch = '0.1.x',
     keys = {
       { '<leader>ff', function() require('telescope.builtin').find_files() end, desc = 'Telescope find files', remap = true },
       { '<leader>fg', function() require('telescope.builtin').live_grep() end,  desc = 'Telescope live grep',  remap = true },
@@ -23,7 +23,7 @@ return {
             find_command = { 'fdfind', '--type', 'f', '--strip-cwd-prefix' }
           },
           buffers = {
-            ignore_current_buffer = true,
+            -- ignore_current_buffer = true,
             mappings = {
               n = { ['dd'] = actions.delete_buffer + actions.move_to_top }
             }
