@@ -1,7 +1,7 @@
 return {
   -- Cmdline tools and lsp servers
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     opts = {
       ui = {
         border = 'rounded',
@@ -13,14 +13,18 @@ return {
       }
     }
   },
+  {
+    'mason-org/mason-lspconfig.nvim',
+    opts = {},
+    dependencies = {
+      { 'mason-org/mason.nvim' },
+      { 'neovim/nvim-lspconfig' }
+    }
+  },
 
   -- Lspconfig
   {
     'neovim/nvim-lspconfig',
-    dependencies = {
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim', config = function() end }
-    },
     init = function()
       -- change diagnostic symbols in the sign column (gutter)
       local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
@@ -31,12 +35,12 @@ return {
 
       -- customizing how diagnostics are displayed
       vim.diagnostic.config({
-        virtual_text = true,
-        signs = true,
+        float = { border = 'rounded' },
         underline = true,
         update_in_insert = false,
-        severity_sort = false,
-        float = { border = 'rounded' }
+        virtual_text = true,
+        signs = true,
+        severity_sort = false
       })
 
       -- lsp attach event
@@ -44,6 +48,9 @@ return {
         group = vim.api.nvim_create_augroup('LspFormatting', { clear = true }),
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client == nil then
+            return
+          end
 
           -- format the current buffer on save
           if client:supports_method('textDocument/formatting') then
@@ -75,6 +82,7 @@ return {
         local function opts(desc)
           return { noremap = true, silent = true, buffer = bufnr, desc = 'LSP ' .. desc }
         end
+        vim.api.nvim_buf_set_option(bufnr, 'foldexpr', 'v:lua.vim.lsp.foldexpr()')
         vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
         vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
@@ -135,37 +143,6 @@ return {
         }
       })
 
-      -- vim.lsp.config('cssls', {
-      --   on_attach = on_attach,
-      --   capabilities = capabilities,
-      --   settings = {
-      --     css = { validate = false },
-      --     less = { validate = false },
-      --     scss = { validate = false }
-      --   }
-      -- })
-
-      -- vim.lsp.config('cssmodules_ls', {
-      --   on_attach = function(client, bufnr)
-      --     client.server_capabilities.definitionProvider = false
-      --     on_attach(client, bufnr)
-      --   end,
-      --   capabilities = capabilities,
-      --   init_options = { camelCase = true }
-      -- })
-
-
-      -- vim.lsp.config('eslint', {
-      --   on_attach = function(client, bufnr)
-      --     vim.api.nvim_create_autocmd('BufWritePre', {
-      --       buffer = bufnr,
-      --       command = 'EslintFixAll'
-      --     })
-      --     on_attach(client, bufnr)
-      --   end,
-      --   capabilities = capabilities
-      -- })
-
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
       -- local servers = { 'lua_ls', 'html', 'tailwindcss', 'vtsls' }
@@ -182,12 +159,6 @@ return {
         'gopls',
         'pyright',
         'ruff'
-        -- 'html',
-        -- 'cssls',
-        -- 'tailwindcss',
-        -- 'cssmodules_ls',
-        -- 'vtsls',
-        -- 'eslint'
       }
       for _, lsp in ipairs(config_servers) do
         vim.lsp.enable(lsp)
