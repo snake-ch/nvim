@@ -44,18 +44,5 @@ return {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     opts = {}
-  },
-
-  -- Automatically add closing tags for HTML and JSX
-  {
-    'windwp/nvim-ts-autotag',
-    opts = {}
-  },
-
-  -- Comments
-  {
-    'folke/ts-comments.nvim',
-    event = 'VeryLazy',
-    opts = {}
   }
 }
