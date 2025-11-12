@@ -1,11 +1,10 @@
 vim.g.mapleader = ';'
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.g.maplocalleader = ';'
 
 -- Hint: use `:h <option>` to figure out the meaning if needed
-vim.opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus' -- use system clipboard
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }     --
-vim.opt.mouse = 'a'                                         -- allow the mouse to be used in Nvim
+vim.opt.clipboard = vim.env.SSH_CONNECTION and '' or 'unnamedplus' -- use system clipboard
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }            --
+vim.opt.mouse = 'a'                                                -- allow the mouse to be used in Nvim
 
 -- Tab
 vim.opt.tabstop = 2      -- number of visual spaces per TAB

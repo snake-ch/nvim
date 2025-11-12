@@ -8,6 +8,10 @@ return {
     keys = {
       { '<F2>', '<cmd>NvimTreeToggle<CR>', desc = 'Explorer NVim-Tree', remap = true }
     },
+    init = function()
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+    end,
     opts = {
       sort = {
         sorter = 'extension'
