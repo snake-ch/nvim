@@ -4,6 +4,9 @@ return {
   -- syntax highlighting.
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'master',
+    lazy = false,
+    build = ':TSUpdate',
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     opts = {
       -- a list of parser names, or 'all' (the five listed parsers should always be installed)
