@@ -15,10 +15,6 @@ return {
         go = { 'golangcilint' },
         proto = { 'buf_lint' },
         python = { 'ruff' }
-        -- javascript = { 'oxlint' },
-        -- typescript = { 'oxlint' },
-        -- javascriptreact = { 'oxlint' },
-        -- typescriptreact = { 'oxlint' }
       }
     end
   }
