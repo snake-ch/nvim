@@ -15,32 +15,33 @@ return {
   },
   {
     'mason-org/mason-lspconfig.nvim',
-    opts = {},
     dependencies = {
       { 'mason-org/mason.nvim' },
       { 'neovim/nvim-lspconfig' }
-    }
+    },
+    opts = {}
   },
 
   -- Lspconfig
   {
     'neovim/nvim-lspconfig',
     init = function()
-      -- change diagnostic symbols in the sign column (gutter)
-      local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-      for type, icon in pairs(signs) do
-        local hl = 'DiagnosticSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
-
       -- customizing how diagnostics are displayed
       vim.diagnostic.config({
         float = { border = 'rounded' },
         underline = true,
         update_in_insert = false,
-        virtual_text = true,
-        signs = true,
-        severity_sort = false
+        severity_sort = false,
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = ' ',
+            [vim.diagnostic.severity.WARN]  = ' ',
+            [vim.diagnostic.severity.INFO]  = ' ',
+            [vim.diagnostic.severity.HINT]  = ' '
+          },
+          numhl = {},
+          linehl = {}
+        }
       })
 
       -- lsp attach event
@@ -101,14 +102,15 @@ return {
         vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts 'Next Diagnostic')
         vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts 'Location List')
 
-        -- telescope
-        local has_telescope, builtin = pcall(require, 'telescope.builtin')
-        if has_telescope then
-          vim.keymap.set('n', 'gr', builtin.lsp_references, opts 'References')
-          vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts 'Goto Implementation')
-          vim.keymap.set('n', 'gt', builtin.lsp_type_definitions, opts 'Goto Definition')
-          vim.keymap.set('n', '<F3>', builtin.lsp_document_symbols, opts 'Documents List')
-          vim.keymap.set('n', '<leader>fd', builtin.diagnostics, opts 'Diagnostics List')
+        -- fzf-lua
+        local has_fzflua, fzf = pcall(require, 'fzf-lua')
+        if has_fzflua then
+          vim.keymap.set('n', 'gr', fzf.lsp_definitions, opts 'References')
+          vim.keymap.set('n', 'gi', fzf.lsp_implementations, opts 'Goto Implementation')
+          vim.keymap.set('n', 'gt', fzf.lsp_typedefs, opts 'Goto Definition')
+          vim.keymap.set('n', '<F3>', fzf.lsp_document_symbols, opts 'Documents List')
+          vim.keymap.set('n', '<leader>fd', fzf.diagnostics_workspace, opts 'Diagnostics List')
+          vim.keymap.set('n', '<leader>ca', fzf.lsp_code_actions, opts 'Code Actions')
         end
       end
 
@@ -145,7 +147,6 @@ return {
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      -- local servers = { 'lua_ls', 'html', 'tailwindcss', 'vtsls' }
       local servers = { 'lua_ls', 'ruff' }
       for _, lsp in ipairs(servers) do
         vim.lsp.config(lsp, {
