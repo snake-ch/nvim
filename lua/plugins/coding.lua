@@ -2,9 +2,20 @@ return {
   -- Code completion
   {
     'saghen/blink.cmp',
-    dependencies = { { 'rafamadriz/friendly-snippets' } },
+    dependencies = { 'rafamadriz/friendly-snippets' },
     version = '*',
     opts = {
+      cmdline = {
+        keymap = {
+          ['<Tab>'] = { 'select_next', 'fallback' },
+          ['<S-Tab>'] = { 'select_prev', 'fallback' },
+          ['<CR>'] = { 'accept', 'fallback' }
+        },
+        completion = {
+          menu = { auto_show = true },
+          list = { selection = { preselect = false, auto_insert = false } }
+        }
+      },
       completion = {
         list = { selection = { preselect = false, auto_insert = false } },
         menu = {
@@ -19,7 +30,7 @@ return {
         },
         documentation = {
           auto_show = true,
-          auto_show_delay_ms = 500,
+          auto_show_delay_ms = 200,
           window = { max_height = 30, border = 'rounded', scrollbar = false }
         }
       },
