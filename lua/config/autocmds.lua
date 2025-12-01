@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end
 })
 
--- Check if we need to reload the file when it changed
+-- check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   group = augroup('checktime'),
   callback = function()
@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   end
 })
 
--- Resize splits if window got resized
+-- resize splits if window got resized
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
   group = augroup('resize_splits'),
   callback = function()
@@ -32,7 +32,15 @@ vim.api.nvim_create_autocmd({ 'VimResized' }, {
   end
 })
 
--- Close some filetypes with <q>
+-- highlight on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = augroup('highlight_yank'),
+  callback = function()
+    (vim.hl or vim.highlight).on_yank()
+  end
+})
+
+-- close some filetypes with <q>
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup('close_with_q'),
   pattern = {
@@ -67,24 +75,11 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
--- Copy/Paste when using ssh on a remote server
-if vim.clipboard and vim.clipboard.osc52 then
-  vim.api.nvim_create_autocmd('VimEnter', {
-    group = augroup('ssh_clipboard'),
-    callback = function()
-      if vim.env.SSH_CONNECTION and vim.clipboard.osc52 then
-        vim.g.clipboard = {
-          name = 'OSC 52',
-          copy = {
-            ['+'] = require('vim.clipboard.osc52').copy,
-            ['*'] = require('vim.clipboard.osc52').copy
-          },
-          paste = {
-            ['+'] = require('vim.clipboard.osc52').paste,
-            ['*'] = require('vim.clipboard.osc52').paste
-          }
-        }
-      end
-    end
-  })
-end
+-- make it easier to close man-files when opened inline
+vim.api.nvim_create_autocmd('FileType', {
+  group = augroup('man_unlisted'),
+  pattern = { 'man' },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+  end
+})
