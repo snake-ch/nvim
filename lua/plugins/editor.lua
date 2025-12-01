@@ -13,9 +13,7 @@ return {
       vim.g.loaded_netrwPlugin = 1
     end,
     opts = {
-      sort = {
-        sorter = 'extension'
-      },
+      sort = { sorter = 'extension' },
       view = {
         float = {
           enable = true,
@@ -42,13 +40,43 @@ return {
           return math.floor(vim.opt.columns:get() * 0.5)
         end
       },
-      filters = {
-        dotfiles = true,
-        custom = { '^.git$', '^node_modules$', '^target$', '*.exe' }
+      renderer = {
+        indent_width = 2,
+        icons = {
+          show = { hidden = true },
+          git_placement = 'after',
+          bookmarks_placement = 'after',
+          symlink_arrow = ' -> ',
+          glyphs = {
+            folder = {
+              arrow_closed = ' ',
+              arrow_open = ' ',
+              default = '',
+              open = '',
+              empty = '',
+              empty_open = '',
+              symlink = '',
+              symlink_open = ''
+            },
+            default = '󱓻',
+            symlink = '󱓻',
+            bookmark = '',
+            modified = '',
+            hidden = '󱙝',
+            git = {
+              unstaged = '×',
+              staged = '',
+              unmerged = '󰧾',
+              untracked = '',
+              renamed = '',
+              deleted = '',
+              ignored = '∅'
+            }
+          }
+        }
       },
-      git = {
-        enable = false
-      }
+      filters = { dotfiles = true, custom = { '^.git$' } }
+      -- git = { enable = false }
     }
   },
 
@@ -102,7 +130,8 @@ return {
               { find = '; after #%d+' },
               { find = '; before #%d+' },
               { find = '%d fewer lines' },
-              { find = '%d more lines' }
+              { find = '%d more lines' },
+              { find = '%d lines yanked' }
             }
           }
         }
