@@ -105,9 +105,9 @@ return {
         -- fzf-lua
         local has_fzflua, fzf = pcall(require, 'fzf-lua')
         if has_fzflua then
-          vim.keymap.set('n', 'gr', fzf.lsp_definitions, opts 'References')
+          vim.keymap.set('n', 'gr', fzf.lsp_references, opts 'References')
           vim.keymap.set('n', 'gi', fzf.lsp_implementations, opts 'Goto Implementation')
-          vim.keymap.set('n', 'gt', fzf.lsp_typedefs, opts 'Goto Definition')
+          vim.keymap.set('n', 'gt', fzf.lsp_typedefs, opts 'Goto Type Definition')
           vim.keymap.set('n', '<F3>', fzf.lsp_document_symbols, opts 'Documents List')
           vim.keymap.set('n', '<leader>fd', fzf.diagnostics_workspace, opts 'Diagnostics List')
           vim.keymap.set('n', '<leader>ca', fzf.lsp_code_actions, opts 'Code Actions')
@@ -159,7 +159,8 @@ return {
         'lua_ls',
         'gopls',
         'pyright',
-        'ruff'
+        'ruff',
+        'tsgo'
       }
       for _, lsp in ipairs(config_servers) do
         vim.lsp.enable(lsp)
