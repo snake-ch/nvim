@@ -21,6 +21,7 @@ vim.opt.cursorline = true     -- highlight cursor line underneath the cursor hor
 vim.opt.splitbelow = true     -- open new vertical split bottom
 vim.opt.splitright = true     -- open new horizontal splits right
 vim.opt.cmdheight = 0         -- cmd height
+vim.opt.showmode = false      -- dont show mode since we have a statusline
 
 -- Edit
 vim.opt.wrap = false                 -- disable line wrap
