@@ -2,10 +2,7 @@ return {
   {
     'stevearc/conform.nvim',
     opts = {
-      format_on_save = {
-        timeout_ms = 5000,
-        lsp_format = 'fallback'
-      },
+      format_on_save = { lsp_format = 'fallback' },
       formatters_by_ft = {
         go = { 'goimports', 'goimports-reviser' },
         proto = { 'buf' },
