@@ -8,7 +8,7 @@ return {
         proto = { 'buf' },
         python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
         toml = { 'taplo' },
-        sql = { 'sqlfluff' },
+        sql = { 'pg_format' },
         -- json = { 'prettierd' },
         -- yaml = { 'prettierd' },
         -- markdown = { 'prettierd' },
@@ -31,8 +31,7 @@ return {
       require('lint').linters_by_ft = {
         go = { 'golangcilint' },
         proto = { 'buf_lint' },
-        python = { 'ruff' },
-        sql = { 'sqlfluff' }
+        python = { 'ruff' }
       }
     end
   }
