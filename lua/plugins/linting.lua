@@ -9,9 +9,9 @@ return {
         python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
         toml = { 'taplo' },
         sql = { 'pg_format' },
-        -- json = { 'prettierd' },
-        -- yaml = { 'prettierd' },
-        -- markdown = { 'prettierd' },
+        json = { 'oxfmt' },
+        yaml = { 'oxfmt' },
+        markdown = { 'oxfmt' },
         ['_'] = { 'trim_whitespace' }
       }
     }
