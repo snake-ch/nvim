@@ -75,8 +75,8 @@ return {
           }
         }
       },
-      filters = { dotfiles = true, custom = { '^.git$' } }
-      -- git = { enable = false }
+      filters = { dotfiles = true, custom = {} },
+      git = { enable = true }
     }
   },
 
