@@ -98,8 +98,12 @@ return {
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts 'Rename')
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts 'Code Actions')
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts 'References')
-        vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts 'Prev Diagnostic')
-        vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts 'Next Diagnostic')
+        vim.keymap.set('n', '[d', function()
+          vim.diagnostic.jump({ count = -1, float = true }, opts 'Prev Diagnostic')
+        end, { desc = 'Prev Diagnostic' })
+        vim.keymap.set('n', ']d', function()
+          vim.diagnostic.jump({ count = 1, float = true }, opts 'Next Diagnostic')
+        end, { desc = 'Next Diagnostic' })
         vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts 'Location List')
 
         -- fzf-lua
