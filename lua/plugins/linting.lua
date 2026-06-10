@@ -9,6 +9,8 @@ return {
         python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
         toml = { 'taplo' },
         sql = { 'pg_format' },
+        javascript = { 'oxfmt' },
+        typescript = { 'oxfmt' },
         json = { 'oxfmt' },
         yaml = { 'oxfmt' },
         markdown = { 'oxfmt' },
@@ -31,7 +33,9 @@ return {
       require('lint').linters_by_ft = {
         go = { 'golangcilint' },
         proto = { 'buf_lint' },
-        python = { 'ruff' }
+        python = { 'ruff' },
+        javascript = { 'oxlint' },
+        typescript = { 'oxlint' }
       }
     end
   }
