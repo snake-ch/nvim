@@ -1,7 +1,6 @@
 vim.g.mapleader = ';'
 vim.g.maplocalleader = ';'
 
--- Hint: use `:h <option>` to figure out the meaning if needed
 vim.opt.clipboard = vim.env.SSH_CONNECTION and '' or 'unnamedplus' -- use system clipboard
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }            --
 vim.opt.mouse = 'a'                                                -- allow the mouse to be used in Nvim
@@ -27,11 +26,12 @@ vim.opt.showmode = false      -- dont show mode since we have a statusline
 vim.opt.wrap = false                 -- disable line wrap
 vim.opt.scrolloff = 5                -- reserve rows
 vim.opt.sidescrolloff = 5            -- reserve columns
-vim.opt.signcolumn = 'yes'           -- always show the signcolumn, otherwise it would shift the text each time
+vim.opt.signcolumn = 'yes'           -- always show the signcolumn
 vim.opt.list = false                 -- show some invisible characters (tabs...
 vim.opt.listchars = 'space:·,tab:>-' -- chars for space & tab
 vim.opt.foldlevel = 99               -- numbers of fold
 vim.opt.foldmethod = 'indent'        -- fold method
+vim.opt.formatoptions = 'jcroqlnt'   -- tcqj
 
 -- Searching
 vim.opt.incsearch = true  -- search as characters are entered
