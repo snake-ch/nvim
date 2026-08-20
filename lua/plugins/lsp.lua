@@ -129,7 +129,7 @@ return {
       vim.lsp.config('gopls', {
         on_attach = on_attach,
         capabilities = capabilities,
-        settings = { gopls = { gofumpt = true } }
+        settings = { gopls = { gofumpt = true, buildFlags = { '-tags=integration' } } }
       })
 
       vim.lsp.config('pyright', {
