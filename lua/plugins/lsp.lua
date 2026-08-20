@@ -151,7 +151,7 @@ return {
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      local servers = { 'lua_ls', 'buf_ls', 'ruff', 'tsgo' }
+      local servers = { 'lua_ls', 'buf_ls', 'ruff', 'tsc' }
       for _, lsp in ipairs(servers) do
         vim.lsp.config(lsp, {
           on_attach = on_attach,
@@ -165,7 +165,7 @@ return {
         'buf_ls',
         'pyright',
         'ruff',
-        'tsgo'
+        'tsc'
       }
       for _, lsp in ipairs(config_servers) do
         vim.lsp.enable(lsp)
