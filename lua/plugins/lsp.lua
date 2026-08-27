@@ -132,21 +132,10 @@ return {
         settings = { gopls = { gofumpt = true, buildFlags = { '-tags=integration' } } }
       })
 
-      vim.lsp.config('pyright', {
+      vim.lsp.config('ty', {
         on_attach = on_attach,
         capabilities = capabilities,
-        settings = {
-          pyright = {
-            -- Using Ruff's import organizer
-            disableOrganizeImports = true
-          },
-          python = {
-            analysis = {
-              -- Ignore all files for analysis to exclusively use Ruff for linting
-              ignore = { '*' }
-            }
-          }
-        }
+        settings = { ty = { diagnosticMode = 'workspace' } }
       })
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -163,7 +152,7 @@ return {
         'lua_ls',
         'gopls',
         'buf_ls',
-        'pyright',
+        'ty',
         'ruff',
         'tsc'
       }
