@@ -97,7 +97,7 @@ return {
   {
     'rcarriga/nvim-notify',
     opts = {
-      fps = 30,
+      fps = 60,
       stages = 'fade',
       timeout = 2000
     }
