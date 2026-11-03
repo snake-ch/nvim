@@ -6,7 +6,7 @@ return {
     lazy = false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     keys = {
-      { '<F2>', '<cmd>NvimTreeToggle<CR>', desc = 'Explorer NVim-Tree', remap = true }
+      { '<leader>t', '<cmd>NvimTreeToggle<CR>', desc = 'Explorer NVim-Tree', remap = true }
     },
     init = function()
       vim.g.loaded_netrw = 1
